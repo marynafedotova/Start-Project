@@ -1,0 +1,70 @@
+[
+  {
+    "images": [
+      "assets/img/cars/NissanMurano2018Black3.5L_7.png",
+      "assets/img/cars/NissanMurano2018Black3.5L_2.png",
+      "assets/img/cars/NissanMurano2018Black3.5L_3.png",
+      "assets/img/cars/NissanMurano2018Black3.5L_1.png"
+    ],
+    "title": "РОЗІБРАЛИ Nissan Murano S 2018 Black 3.5L",
+    "vehicle": {
+      "year": "2018",
+      "vin": "5N1AZ2MH6JN106880",
+      "engine": "3.5 L",
+      "transmission": " Automatic",
+      "body_color": " Black",
+      "drive": " All Wheel Drive"
+    }
+  },
+  {
+    "images": [
+      "assets/img/cars/JeepCompassLimited2020White2.4L_1.png",
+      "assets/img/cars/JeepCompassLimited2020White2.4L_2.png",
+      "assets/img/cars/JeepCompassLimited2020White2.4L_3.png",
+      "assets/img/cars/JeepCompassLimited2020White2.4L_4.png"
+    ],
+    "title": "РОЗІБРАЛИ Jeep Compass Limited 2020 White 2.4L",
+    "vehicle": {
+      "year": "2018",
+      "vin": "5N1AZ2MH6JN106880",
+      "engine": "3.5 L",
+      "transmission": " Automatic",
+      "body_color": " Black",
+      "drive": "All Wheel Drive"
+    }
+  },
+  {
+    "images": [
+      "assets/img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_1.png",
+      "assets/img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_2.png",
+      "assets/img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_3.png",
+      "assets/img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_4.png"
+    ],
+    "title": "РОЗІБРАЛИ Nissan Murano S 2018 Black 3.5L",
+    "vehicle": {
+      "year": "2018",
+      "vin": "5N1AZ2MH6JN106880",
+      "engine": "3.5 L",
+      "transmission": " Automatic",
+      "body_color": "Black",
+      "drive": " All Wheel Drive"
+    }
+  },
+  {
+    "images": [
+      "assets/img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_1.png",
+      "assets/img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_2.png",
+      "assets/img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_3.png",
+      "assets/img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_4.png"
+    ],
+    "title": "РОЗІБРАЛИ Nissan Murano S 2018 Black 3.5L",
+    "vehicle": {
+      "year": "2018",
+      "vin": "5N1AZ2MH6JN106880",
+      "engine": "3.5 L",
+      "transmission": " Automatic",
+      "body_color": " Black",
+      "drive": " All Wheel Drive"
+    }
+  }
+]

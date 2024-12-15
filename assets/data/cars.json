@@ -1,0 +1,82 @@
+{
+  "cars_in_transit": [
+    {
+      "model": "Dodge Journey CR 2017 CROSSROAD",
+      "color": "White",
+      "engine": "2.4 L",
+      "vin": "3C4PDCGB2HT685094",
+      "status": "Stationary",
+      "auction": "IAAI",
+      "sale_date": "29.07.2024",
+      "year": 2017,
+      "mileage": 0,
+      "seller": "AR - LITTLE ROCK",
+      "location": "MEXICO",
+      "primary_damage": "Flood",
+      "secondary_damage": "Not specified",
+      "estimated_value": 12424,
+      "repair_cost": 8800,
+      "transmission": "Automatic",
+      "drive": "Front-wheel Drive",
+      "images": [
+        "../img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_1.png",
+        "../img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_2.png",
+        "../img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_3.png",
+        "../img/cars/DodgeJourneycr2017CROSSROADWHITE2.4_4.png"
+      ]
+    },
+    {
+      "model": "VOLKSWAGEN PASSAT 1.8T WOLFSBURG EDITION 2014",
+      "color": "Black",
+      "engine": "1.8 L",
+      "vin": "1VWAT7A34EC110467",
+      "status": "Starts and drives",
+      "auction": "IAAI",
+      "sale_date": "29.07.2024",
+      "year": 2014,
+      "mileage": 122469,
+      "seller": "VRD Wholesale Dealer",
+      "location": "Macon (GA)",
+      "primary_damage": "Front End",
+      "secondary_damage": "ENGINE DAMAGE",
+      "estimated_value": null,
+      "repair_cost": null,
+      "transmission": "Automatic",
+      "drive": "Front-wheel Drive",
+      "images": [
+       "../img/cars/VOLKSWAGENPASSAT1.8TWOLFSBURGEDITION2014Black_1.png",
+       "../img/cars/VOLKSWAGENPASSAT1.8TWOLFSBURGEDITION2014Black_2.png",
+       "../img/cars/VOLKSWAGENPASSAT1.8TWOLFSBURGEDITION2014Black_3.png",
+       "../img/cars/VOLKSWAGENPASSAT1.8TWOLFSBURGEDITION2014Black_4.png",
+       "../img/cars/VOLKSWAGENPASSAT1.8TWOLFSBURGEDITION2014Black_5.png"
+      ]
+    },
+    {
+      "model": "JAGUAR XF PRESTIG 2016",
+      "color": "Blue",
+      "engine": "3.0 L",
+      "vin": "SAJBK4BV8GCY15074",
+      "status": "Stationary",
+      "auction": "IAAI",
+      "sale_date": "5.08.2024",
+      "year": 2016,
+      "mileage": 124836,
+      "seller": "AR - LITTLE ROCK",
+      "location": "AR - LITTLE ROCK",
+      "primary_damage": "Flood",
+      "secondary_damage": "Minor Dent/Scratches",
+      "estimated_value": 11684,
+      "repair_cost": 9916,
+      "transmission": "Automatic",
+      "drive": "AWD/All-Wheel Drive",
+      "images": [
+        "../img/cars/JAGUARXFPRESTIG2016BLUE_1.png",
+        "../img/cars/JAGUARXFPRESTIG2016BLUE_2.png",
+        "../img/cars/JAGUARXFPRESTIG2016BLUE_3.png",
+        "../img/cars/JAGUARXFPRESTIG2016BLUE_4.png",
+        "../img/cars/JAGUARXFPRESTIG2016BLUE_5.png",
+        "../img/cars/JAGUARXFPRESTIG2016BLUE_6.png"
+      ]
+    }
+  ]
+}
