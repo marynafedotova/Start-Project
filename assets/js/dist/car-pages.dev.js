@@ -34,8 +34,9 @@ window.onload = function () {
   }).then(function (data) {
     var carsArray = data.Sheet1;
     var carData = carsArray.filter(function (car) {
-      return car.markaavto && car.markaavto.trim().toLowerCase() === markaavto.trim().toLowerCase() && car.model && car.model.trim().toLowerCase() === model.trim().toLowerCase() && car.god && car.god.trim() === year.trim();
-    });
+      return car.markaavto && car.markaavto.trim().toLowerCase() === markaavto.trim().toLowerCase() && car.model && car.model.trim().toLowerCase() === model.trim().toLowerCase() && car.god && car.god.toString().trim() === year.trim();
+    } // Преобразуем car.god в строку
+    );
 
     if (carData.length > 0) {
       var partsByCategory = {};

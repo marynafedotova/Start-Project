@@ -4,6 +4,7 @@ window.onload = () => {
   const model = decodeURIComponent(params.get('model'));
   const year = decodeURIComponent(params.get('year'));
 
+  
   const categoryMap = {
     "Інтер'єр/салон": 'interior',
     "Двигун": 'engine',
@@ -37,8 +38,9 @@ window.onload = () => {
       const carData = carsArray.filter(car =>
         car.markaavto && car.markaavto.trim().toLowerCase() === markaavto.trim().toLowerCase() &&
         car.model && car.model.trim().toLowerCase() === model.trim().toLowerCase() &&
-        car.god && car.god.trim() === year.trim()
+        car.god && car.god.toString().trim() === year.trim() // Преобразуем car.god в строку
       );
+      
 
       if (carData.length > 0) {
         const partsByCategory = {};

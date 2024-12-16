@@ -1,22 +1,23 @@
 "use strict";
 
 var cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-var cartItemsContainer = document.getElementById("cartItems");
+var cartItemsContainer = document.getElementById("cartItems"); // Добавление товара в корзину
 
 function addToCart(item) {
   var existingItem = cart.find(function (cartItem) {
     return cartItem.id === item.id;
-  });
+  }); // Если товар уже в корзине, не добавляем его повторно
 
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
+  if (!existingItem) {
+    item.quantity = 1; // Фиксированное количество
+
     cart.push(item);
   }
 
   sessionStorage.setItem("cart", JSON.stringify(cart));
   updateCartDisplay();
-}
+} // Обновление корзины
+
 
 function updateCart() {
   sessionStorage.setItem("cart", JSON.stringify(cart));
@@ -43,7 +44,7 @@ function updateCartDisplay() {
       itemImage.style.width = "130px";
       itemImage.style.marginRight = "10px";
       var itemText = document.createElement("div");
-      itemText.innerHTML = "\n              <div class=\"cart-list\">\n                  <div class=\"item-id-link\" data-id=\"".concat(item.id, "\" style=\"cursor: pointer; color: white; text-decoration: underline;\">").concat(item.id, "</strong></div>\n                  <div class=\"cart_item_tile\">").concat(item.name, "</div>\n                  <div class=\"quantity\">").concat(item.quantity, " \u0448\u0442.</div>\n                  <div class=\"cart_item_price\">").concat(item.price * item.quantity, " \u0433\u0440\u043D</div>\n              </div>\n          ");
+      itemText.innerHTML = "\n              <div class=\"cart-list\">\n                  <div class=\"item-id-link\" data-id=\"".concat(item.id, "\" style=\"cursor: pointer; color: white; text-decoration: underline;\">").concat(item.id, "</strong></div>\n                  <div class=\"cart_item_tile\">").concat(item.name, "</div>\n                  <div class=\"quantity\">1 \u0448\u0442.</div> <!-- \u0424\u0438\u043A\u0441\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E -->\n                  <div class=\"cart_item_price\">").concat(item.price, " \u0433\u0440\u043D</div>\n              </div>\n          ");
       var controls = document.createElement("div");
       controls.classList.add("cart-controls");
       var deleteButton = document.createElement("button");
@@ -75,15 +76,17 @@ function updateCartDisplay() {
     }
 
     var totalAmount = calculateTotal();
-    totalAmountElement.textContent = "\u0417\u0430\u0433\u0430\u043B\u044C\u043D\u0430 \u0441\u0443\u043C\u0430: ".concat(totalAmount.toFixed(2), " \u0433\u0440\u043D");
+    totalAmountElement.textContent = "\u0417\u0430\u0433\u0430\u043B\u044C\u043D\u0430 \u0441\u0443\u043C\u0430: ".concat(totalAmount, " \u0433\u0440\u043D");
   }
-}
+} // Расчет общей суммы заказа
+
 
 function calculateTotal() {
   return cart.reduce(function (total, item) {
-    return total + item.price * item.quantity;
-  }, 0);
-}
+    return total + item.price;
+  }, 0); // Убираем умножение на quantity
+} // Обработчик событий для кнопки "Добавить в корзину"
+
 
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("add-to-cart")) {
@@ -92,11 +95,13 @@ document.addEventListener("click", function (event) {
       name: event.target.dataset.name,
       price: parseFloat(event.target.dataset.price || 0),
       quantity: 1,
+      // Фиксированное количество
       photo: event.target.dataset.photo || "default-photo.jpg"
     };
     addToCart(item);
   }
-});
+}); // Инициализация отображения корзины
+
 updateCartDisplay(); //нп
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -146,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   hideAllDeliveryOptions();
 }); // Функция для загрузки городов и отделений
+// Функция для загрузки городов и отделений
 
 function loadCitiesAndDepartments() {
   var cityInput = document.getElementById("cityInput");
@@ -167,7 +173,8 @@ function loadCitiesAndDepartments() {
           calledMethod: "searchSettlements",
           methodProperties: {
             CityName: query,
-            Limit: 10
+            Limit: 10 // ограничение по количеству результатов
+
           }
         })
       }).then(function (response) {
@@ -175,21 +182,21 @@ function loadCitiesAndDepartments() {
       }).then(function (data) {
         citySuggestions.innerHTML = "";
 
-        if (data.success && data.data[0].Addresses.length > 0) {
+        if (data.success && data.data && data.data.length > 0) {
           data.data[0].Addresses.forEach(function (address) {
             var listItem = document.createElement("li");
             listItem.textContent = "".concat(address.MainDescription, ", ").concat(address.Area, ", ").concat(address.Region);
             listItem.dataset.ref = address.Ref;
             listItem.addEventListener("click", function () {
               cityInput.value = listItem.textContent;
-              citySuggestions.innerHTML = ""; // Загружаем отделения
+              citySuggestions.innerHTML = ""; // Загружаем отделения для выбранного города с учетом рефки
 
-              loadDepartmentsForCity(listItem.dataset.ref);
+              loadDepartmentsForCity(address.Ref);
             });
             citySuggestions.appendChild(listItem);
           });
         } else {
-          citySuggestions.innerHTML = "<li>Ничего не найдено</li>";
+          citySuggestions.innerHTML = "<li>Нічого не знайдено</li>";
         }
       })["catch"](function (error) {
         console.error("Ошибка поиска городов:", error);
@@ -208,6 +215,13 @@ function loadCitiesAndDepartments() {
 
   function loadDepartmentsForCity(cityRef) {
     console.log("CityRef для загрузки отделений:", cityRef);
+
+    if (!cityRef || cityRef.length === 0) {
+      console.warn("CityRef отсутствует или некорректен.");
+      departmentSelect.innerHTML = "<option>Виберіть інше місто</option>";
+      return;
+    }
+
     departmentSelect.innerHTML = "<option>Загрузка...</option>";
     fetch("https://api.novaposhta.ua/v2.0/json/", {
       method: "POST",
@@ -220,7 +234,8 @@ function loadCitiesAndDepartments() {
         calledMethod: "getWarehouses",
         methodProperties: {
           CityRef: cityRef
-        }
+        } // используем CityRef
+
       })
     }).then(function (response) {
       return response.json();
@@ -228,7 +243,7 @@ function loadCitiesAndDepartments() {
       console.log("Ответ API для отделений:", data);
       departmentSelect.innerHTML = "";
 
-      if (data.success && data.data.length > 0) {
+      if (data.success && data.data && data.data.length > 0) {
         data.data.forEach(function (department) {
           var option = document.createElement("option");
           option.value = department.Ref;
@@ -236,19 +251,121 @@ function loadCitiesAndDepartments() {
           departmentSelect.appendChild(option);
         });
       } else {
-        console.warn("Отделения не найдены:", data.errors || "нет данных");
-        departmentSelect.innerHTML = "<option>Відділення не знайдені</option>";
+        console.warn("Отделения не найдены для CityRef:", cityRef);
+        departmentSelect.innerHTML = "<option>Відділення не знайдені. Виберіть інше місто.</option>";
       }
     })["catch"](function (error) {
       console.error("Ошибка загрузки отделений:", error);
       departmentSelect.innerHTML = "<option>Ошибка загрузки</option>";
     });
   }
-}
+} // Вызов функции
+
+
+loadCitiesAndDepartments();
+
+function loadWarehousesAndPostomats() {
+  var cityInput = document.getElementById("cityInput");
+  var warehouseSelect = document.getElementById("department"); // Событие для поиска складов и отделений
+
+  cityInput.addEventListener("input", function () {
+    var cityName = cityInput.value.trim();
+
+    if (cityName.length > 1) {
+      fetch("https://api.novaposhta.ua/v2.0/json/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          apiKey: "42c819c8fa548077af98a2bfca982d5e",
+          // ваш ключ API
+          modelName: "AddressGeneral",
+          calledMethod: "getWarehouses",
+          methodProperties: {
+            CityName: cityName,
+            CityRef: "",
+            // Здесь будет Ref города
+            Page: "1",
+            Limit: "50",
+            Language: "UA",
+            TypeOfWarehouseRef: "",
+            // если нужен фильтр по типу отделения
+            WarehouseId: "" // если нужен поиск по ID
+
+          }
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log("Ответ API:", data);
+        warehouseSelect.innerHTML = ""; // очистка предыдущих данных
+
+        if (data.success && data.data && data.data.length > 0) {
+          data.data.forEach(function (warehouse) {
+            var option = document.createElement("option");
+            option.value = warehouse.Ref;
+            option.textContent = "".concat(warehouse.Description, " (").concat(warehouse.City, ")");
+            warehouseSelect.appendChild(option);
+          });
+        } else {
+          console.warn("Отделения не найдены.");
+          warehouseSelect.innerHTML = "<option>Відділення не знайдені</option>";
+        }
+      })["catch"](function (error) {
+        console.error("Ошибка загрузки отделений:", error);
+        warehouseSelect.innerHTML = "<option>Ошибка загрузки</option>";
+      });
+    } else {
+      warehouseSelect.innerHTML = "<option>Виберіть місто</option>";
+    }
+  }); // Закрытие подсказок при клике вне поля
+
+  document.addEventListener("click", function (event) {
+    if (!cityInput.contains(event.target) && !warehouseSelect.contains(event.target)) {
+      warehouseSelect.innerHTML = "<option>Виберіть місто</option>";
+    }
+  });
+} // Вызов функции
+
+
+loadWarehousesAndPostomats();
+document.addEventListener("click", function (event) {
+  if (!cityInput.contains(event.target) && !citySuggestions.contains(event.target)) {
+    citySuggestions.innerHTML = "";
+  }
+});
 
 function getPaymentLabel(paymentData) {
   var paymentMethod = paymentData.get('payment');
   return document.querySelector("input[name=\"payment\"][value=\"".concat(paymentMethod, "\"]")).nextElementSibling.textContent;
+}
+
+(function () {
+  emailjs.init("pR7YN2WMFPV8ft58t");
+})();
+
+function sendEmail(message, name, lastName, email, paymentMethod, deliveryMethod, phone) {
+  var emailTemplateParams = {
+    order_details: message,
+    name: name,
+    last_name: lastName,
+    email: email,
+    payment_method: paymentMethod,
+    delivery_method: deliveryMethod,
+    phone: phone
+  };
+  emailjs.send('service_k6d6ieu', // Вставить Service ID
+  'template_8fohjaj', // Вставить Template ID
+  emailTemplateParams, // Передаємо дані
+  'pR7YN2WMFPV8ft58t' // Вставити Public Key
+  ).then(function () {
+    console.log('Message sent successfully to Email.');
+    toast.success('Ваше повідомлення успішно надіслано в Telegram та на Email.');
+  })["catch"](function (error) {
+    console.error('Error sending to Email:', error);
+    toast.error('Повідомлення до Email не вдалося надіслати.');
+  });
 }
 
 function sendDataToTelegram() {
@@ -288,8 +405,10 @@ function sendDataToTelegram() {
   } else if (lastName.length < 2) {
     errors.push('Ваше прізвище занадто коротке');
     lastNameFld.classList.add('is-invalid');
-  } // Валидация email
+  }
 
+  var phoneFld = document.querySelector('#telephon');
+  var phone = phoneFld.value.trim(); // Валидация email
 
   var emailFld = document.querySelector('#email');
   var email = emailFld.value.trim();
@@ -316,7 +435,7 @@ function sendDataToTelegram() {
   } // Перевірка вибору оплати
 
 
-  var paymentMethod = paymentData.get('payment');
+  var paymentMethod = getPaymentLabel(paymentData);
 
   if (!paymentMethod) {
     errors.push('Оберіть спосіб оплати.');
@@ -328,10 +447,7 @@ function sendDataToTelegram() {
     return;
   }
 
-  var phone = ''; // Объявляем phone
-
-  var message = "\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F:\n"; // Добавляем данные о заказе
-
+  var message = "\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F:\n";
   cart.forEach(function (item) {
     message += "ID: ".concat(item.id, " \u041D\u0430\u0437\u0432\u0430: ").concat(item.name, " \u0426\u0456\u043D\u0430: ").concat(item.price, " \u0433\u0440\u043D\n");
   });
@@ -362,14 +478,15 @@ function sendDataToTelegram() {
     return response.json();
   }).then(function (data) {
     if (data.ok) {
-      console.log('Message sent successfully.');
+      console.log('Message sent successfully to Telegram.');
+      sendEmail(message, name, lastName, email, paymentMethod, phone); // Очищення форм та кошика
+
       contactsForm.reset();
       clearCart();
       updateCartDisplay();
-      toast.success('Ваше повідомлення успішно надіслано.');
     } else {
-      console.log('Error sending message:', data);
-      toast.error('Сталася помилка.');
+      console.log('Error sending message to Telegram:', data);
+      toast.error('Сталася помилка під час надсилання в Telegram.');
     }
   })["catch"](function (error) {
     console.log('Error:', error);

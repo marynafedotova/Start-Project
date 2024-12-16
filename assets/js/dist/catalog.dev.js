@@ -101,11 +101,10 @@ function displayProducts() {
   var productsToDisplay = isSearch ? filteredProducts : products.slice(currentProductIndex, currentProductIndex + productsPerPage);
   productsToDisplay.forEach(function (product) {
     var priceInUah = Math.ceil(product.zena * usdToUahRate); // Печать для диагностики пути
+    // console.log('Фото для товара:', product.photo);
+    // Берем первое изображение из списка, если оно есть, или дефолтное фото
 
-    console.log('Фото для товара:', product.photo); // Берем первое изображение из списка, если оно есть, или дефолтное фото
-
-    var photoUrl = product.photo ? product.photo.split(',')[0].trim() : 'default-photo.jpg';
-    console.log('Используемое фото:', photoUrl); // Логирование выбранного пути
+    var photoUrl = product.photo ? product.photo.split(',')[0].trim() : 'default-photo.jpg'; // console.log('Используемое фото:', photoUrl);  // Логирование выбранного пути
 
     var productCard = "\n      <div class=\"product-card\">\n        <img src=\"".concat(photoUrl, "\" alt=\"").concat(product.zapchast, "\">\n        <h3>\u0410\u0440\u0442\u0438\u043A\u0443\u043B: ").concat(product.ID_EXT, "</h3>\n        <h3>\u041D\u0430\u0437\u0432\u0430: ").concat(product.zapchast, "</h3>\n        <p>\u0426\u0456\u043D\u0430: ").concat(product.zena, " ").concat(product.valyuta, " / ").concat(priceInUah, " \u0433\u0440\u043D</p>\n        <div class=\"btn-cart\">\n          <button class=\"add-to-cart\" \n                  data-id=\"").concat(product.ID_EXT, "\" \n                  data-price=\"").concat(priceInUah, "\" \n                  data-name=\"").concat(product.zapchast, "\" \n                  data-photo=\"").concat(photoUrl, "\">\n              \u0414\u043E\u0434\u0430\u0442\u0438 \u0434\u043E \u043A\u043E\u0448\u0438\u043A\u0430\n          </button>\n        </div>\n        <div class=\"product_btn\">\n          <a href=\"product.html?id=").concat(product.ID_EXT, "\">\u0414\u0435\u0442\u0430\u043B\u044C\u043D\u0456\u0448\u0435</a>\n        </div>\n      </div>");
     productContainer.insertAdjacentHTML('beforeend', productCard);
@@ -282,58 +281,78 @@ fetch('../data/data_ukr.json').then(function (response) {
     return item.markaavto && item.model && item.god;
   }).map(function (item) {
     return {
-      markaavto: item.markaavto.trim(),
-      model: item.model.trim(),
-      god: item.god
-    };
-  }); // Группируем данные по маркам
+      markaavto: item.markaavto,
+      model: item.model,
+      god: item.god // Добавляем год для передачи в ссылку
 
+    };
+  });
   var carAccordionData = cars.reduce(function (acc, car) {
     if (!acc[car.markaavto]) {
-      acc[car.markaavto] = new Set();
+      acc[car.markaavto] = {};
     }
 
-    acc[car.markaavto].add(JSON.stringify({
-      model: car.model,
-      god: car.god
-    }));
+    if (!acc[car.markaavto][car.model]) {
+      acc[car.markaavto][car.model] = new Set(); // Используем Set для уникальных годов
+    }
+
+    acc[car.markaavto][car.model].add(car.god); // Добавляем только уникальные года
+
     return acc;
   }, {});
   var accordionContainer = document.getElementById('carAccordion');
-  accordionContainer.innerHTML = '';
 
   var _loop = function _loop() {
     var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
         make = _Object$entries$_i[0],
         models = _Object$entries$_i[1];
 
-    if (!make) return "continue";
+    if (!make) return "continue"; // Пропускаем, если марка null или пустая
+
     var makeDiv = document.createElement('div');
     makeDiv.classList.add('accordion-item');
     var makeHeader = document.createElement('h3');
     makeHeader.textContent = make;
     makeHeader.classList.add('accordion-header');
     makeHeader.addEventListener('click', function () {
+      var modelList = this.nextElementSibling;
       modelList.classList.toggle('active');
     });
     makeDiv.appendChild(makeHeader);
     var modelList = document.createElement('div');
     modelList.classList.add('accordion-content');
-    models.forEach(function (modelData) {
-      var _JSON$parse = JSON.parse(modelData),
-          model = _JSON$parse.model,
-          god = _JSON$parse.god;
 
-      if (model && god) {
-        var modelItem = document.createElement('p');
-        modelItem.textContent = "".concat(model, " (").concat(god, ")");
-        modelItem.classList.add('model-item');
-        modelItem.addEventListener('click', function () {
-          window.location.href = "./car-page.html?make=".concat(make, "&model=").concat(model, "&year=").concat(god);
+    var _loop2 = function _loop2() {
+      var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+          model = _Object$entries2$_i[0],
+          years = _Object$entries2$_i[1];
+
+      var modelHeader = document.createElement('h4');
+      modelHeader.textContent = model;
+      modelHeader.classList.add('model-header');
+      modelHeader.addEventListener('click', function () {
+        var yearList = this.nextElementSibling;
+        yearList.classList.toggle('active');
+      });
+      modelList.appendChild(modelHeader);
+      var yearList = document.createElement('div');
+      yearList.classList.add('year-list');
+      years.forEach(function (year) {
+        var yearItem = document.createElement('p');
+        yearItem.textContent = "\u0413\u043E\u0434: ".concat(year);
+        yearItem.classList.add('year-item');
+        yearItem.addEventListener('click', function () {
+          window.location.href = "./car-page.html?make=".concat(make, "&model=").concat(model, "&year=").concat(year);
         });
-        modelList.appendChild(modelItem);
-      }
-    });
+        yearList.appendChild(yearItem);
+      });
+      modelList.appendChild(yearList);
+    };
+
+    for (var _i2 = 0, _Object$entries2 = Object.entries(models); _i2 < _Object$entries2.length; _i2++) {
+      _loop2();
+    }
+
     makeDiv.appendChild(modelList);
     accordionContainer.appendChild(makeDiv);
   };
