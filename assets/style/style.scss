@@ -2762,31 +2762,53 @@ h3{
     padding: 5px;
   }
   .menu-panel {
-    // width: 33%;
+    width: 33%;
     height: 100%;
   }
   header .header-container{
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   header .header-container .logo img {
     width: 130px;
     object-fit: contain;
   }
+  header .account ul li img, header .language ul li img {
+    width: 0px;
+    height: 0;
+    display: none;
+}
   header .nav-container{
     padding-top: 0;
   }
 }
 @media screen and (max-width: 1270px) {
+  header .header-container .social-link ul li img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+header .language ul li{
+  height: 16px;
+  img{
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
+}
+header .header-container .social-link ul li{
+  height: 20px;
+}
     #first-section_index .container .first_screan .sidebar_filter{
-      top:130px;
+      top:150px;
       width: 300px;
       padding: 8px;
       h2{
         font-size: 1rem;
       }
       form select{
+        width: 280px;
         font-size: 1rem;
         height: 30px;
         #search-sidebar{
@@ -2802,6 +2824,26 @@ flex-wrap: wrap;
     font-size: 0.9rem;
 }
 }
+@media screen and (max-width: 1130px) {
+  #first-section_index .container .first_screan .sidebar_filter{
+    top: 8%;
+    position: relative;
+    margin: 0 auto;
+    width: 80%;
+    form select{
+      width: 100%;
+    }
+  }
+  #first-section_index .container .first_screan {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 700px) {
+  header .header-container .tel ul li a {
+    font-size: 0.8rem;
+}
+}
+
 @media (max-width: 860px) {
   .footer-menu .container .footer-links{
     flex-wrap: wrap;
@@ -2833,148 +2875,10 @@ flex-wrap: wrap;
   padding: 5px;
   }
 }
-
-@media (max-width: 320px) {
-  header {
-    padding: 5px 2px 0px;
-
-    .header-container {
-      .tel ul {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .social-link ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .logo img {
-        max-width: 80px;
-      }
-    }
-
-    .nav-container {
-      nav ul li a {
-        font-size: 0.8rem;
-      }
-    }
-  }
-}
-/* Великий екран */
-@media (max-width: 1400px) {
-  .container {
-    width: 85%;
-  }
-  .product-card {
-    width: 22%;
-  }
-  footer .container {
-    gap: 30px;
-  }
-}
-
-/* Середній екран (ноутбуки) */
-@media (max-width: 1220px) {
-  header .header-container .tel ul li {
-    font-size: 1rem;
-  }
-  .product-card {
-    width: 30%;
-  }
-  footer .container {
-    flex-direction: column;
-    gap: 20px;
-  }
-}
-
-/* Планшети в альбомному режимі */
-@media (max-width: 1024px) {
-  .container {
-    width: 90%;
-  }
-  header .header-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-  .product-card {
-    width: 45%;
-    margin-bottom: 16px;
-  }
-  #cars-catalog .car-card {
-    width: 45%;
-  }
-  footer .container {
-    gap: 25px;
-  }
-}
-
-/* Планшети у портретному режимі */
-@media (max-width: 860px) {
-  header .header-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-  header .header-container .social-link ul {
-    flex-direction: row;
-    gap: 10px;
-  }
-  .product-card {
-    width: 48%;
-  }
-  #cars-catalog .car-card {
-    width: 48%;
-  }
-}
-
-/* Смартфони великого розміру */
-@media (max-width: 768px) {
-  header .header-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  header .header-container .tel ul li {
-    font-size: 0.9rem;
-  }
-  .product-card {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  #cars-catalog .car-card {
-    width: 100%;
-  }
-  footer .container {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-/* Смартфони середнього розміру */
-@media (max-width: 600px) {
-  header .header-container .tel ul li {
-    font-size: 0.8rem;
-  }
-  .menu-panel {
-    width: 100%;
-  }
-  #cars-catalog .car-card img {
-    max-width: 100%;
-    height: auto;
-  }
-  footer .container {
-    gap: 20px;
-  }
-}
-
 /* Смартфони маленького розміру */
 @media (max-width: 480px) {
   .container {
     width: 95%;
-  }
-  header .header-container {
-    flex-direction: column;
-    gap: 10px;
   }
   .product-card {
     width: 100%;
@@ -2987,11 +2891,7 @@ flex-wrap: wrap;
 
 /* Найменші пристрої */
 @media (max-width: 350px) {
-  header .header-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
+
   .menu-panel {
     width: 100%;
   }
@@ -3004,5 +2904,4 @@ flex-wrap: wrap;
     text-align: center;
   }
 }
-
 

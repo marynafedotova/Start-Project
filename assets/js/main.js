@@ -68,7 +68,7 @@ function createAdvantagesSlider(elementId, jsonData) {
     const slideElement = $(`
       <li>
       <div class="adventages-slide">
-        <img data-src="${item.image}" alt="" class="lazy">
+        <img src="${item.image}" alt="${item.text}">
         <div class="adventages-text">${item.text}</div>
       </li>
       </div>
