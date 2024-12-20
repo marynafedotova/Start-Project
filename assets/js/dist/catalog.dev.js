@@ -176,7 +176,7 @@ document.getElementById('search-form').addEventListener('submit', function (even
 
   if (query) {
     var filteredProducts = products.filter(function (product) {
-      return product.ID_EXT && product.ID_EXT.toLowerCase().includes(query) || product.zapchast && product.zapchast.toLowerCase().includes(query) || product.markaavto && product.markaavto.toLowerCase().includes(query) || product.model && product.model.toLowerCase().includes(query) || product.category && product.category.toLowerCase().includes(query) || product.dop_category && product.dop_category.toLowerCase().includes(query) || product.originalnumber && product.originalnumber.toLowerCase().includes(query);
+      return typeof product.ID_EXT === 'string' && product.ID_EXT.toLowerCase().includes(query) || typeof product.zapchast === 'string' && product.zapchast.toLowerCase().includes(query) || typeof product.markaavto === 'string' && product.markaavto.toLowerCase().includes(query) || typeof product.model === 'string' && product.model.toLowerCase().includes(query) || typeof product.category === 'string' && product.category.toLowerCase().includes(query) || typeof product.dop_category === 'string' && product.dop_category.toLowerCase().includes(query) || typeof product.originalnumber === 'string' && product.originalnumber.toLowerCase().includes(query);
     });
     console.log('Filtered products:', filteredProducts);
     displayedProductCount = 0;
@@ -200,7 +200,7 @@ document.getElementById('search-input').addEventListener('input', function () {
 
   if (query) {
     var filteredProducts = products.filter(function (product) {
-      return product.ID_EXT && product.ID_EXT.toLowerCase().includes(query) || product.zapchast && product.zapchast.toLowerCase().includes(query) || product.markaavto && product.markaavto.toLowerCase().includes(query) || product.model && product.model.toLowerCase().includes(query) || product.category && product.category.toLowerCase().includes(query) || product.dop_category && product.dop_category.toLowerCase().includes(query) || product.originalnumber && product.originalnumber.toLowerCase().includes(query);
+      return typeof product.ID_EXT === 'string' && product.ID_EXT.toLowerCase().includes(query) || typeof product.zapchast === 'string' && product.zapchast.toLowerCase().includes(query) || typeof product.markaavto === 'string' && product.markaavto.toLowerCase().includes(query) || typeof product.model === 'string' && product.model.toLowerCase().includes(query) || typeof product.category === 'string' && product.category.toLowerCase().includes(query) || typeof product.dop_category === 'string' && product.dop_category.toLowerCase().includes(query) || typeof product.originalnumber === 'string' && product.originalnumber.toLowerCase().includes(query);
     });
     displayedProductCount = 0;
     displayProducts(filteredProducts);

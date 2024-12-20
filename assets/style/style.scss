@@ -1789,6 +1789,12 @@ fieldset {
   .guarantees-info{
     padding-top: 32px;
   }
+  .deteils-info{
+    .opysanye{
+      padding-top: 16px;
+      font-size: 1.3rem;
+    }
+  }
 }
 .info-content {
   display: none;  
@@ -2371,19 +2377,30 @@ h3{
 }
 .product-details{
   box-shadow: 0 4px 8px rgba(240, 235, 235, 0.1); 
-  padding-top: 100px;
+  padding-top: 50px;
   display: flex;
   justify-content: center;
   padding-bottom: 100px;
   margin-bottom: 50px;
   gap: 48px;
   background-color: $color--mine-shaft;
+  align-items: center;
+  .product-image-slider{
+    padding-top: 90px;
+  }
   .stan{
     background-color: $ForestGreen;
     width: 31%;
     padding: 8px;
-    margin-left: 90%;
+    margin-left: 80%;
     font-weight: 700;
+  }
+  .articul{
+    color: $ForestGreen;
+    padding-left: 80%;
+    .product-id{
+      color: $color--porcelain;
+    }
   }
   .product-name{
     padding-bottom: 16px;
@@ -2392,8 +2409,9 @@ h3{
     display: flex;
     gap: 20px;
     color: $ForestGreen;
-    font-weight: 600;
+    font-weight: 700;
     padding-bottom: 8px;
+
     .product-id, .product-price, .product-description,.product-model, .product-god, .product-category,
     .product-toplivo, .product-originalnumber,
     .product-markaavto,.product-dop_category,
@@ -2401,6 +2419,10 @@ h3{
     .product-price-uah
     {
       color: $color--porcelain;
+      font-weight: 400;
+    }
+    .product-markaavto{
+      padding-right: 30%;
     }
   }
   .product-title-item.articul{
@@ -2408,8 +2430,20 @@ h3{
     text-transform:uppercase;
   }
   .product-title-item.price{
-    padding: 16px;
+    margin-top: 44px;
+    padding: 8px;
     font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    background-color: $ForestGreen;
+    color: $black;
+    margin-bottom: 16px;
+    border: 1px solid $color--porcelain;
+    border-radius: 8px;
+    .product-price{
+      color: $black;
+      font-weight: 700;
+    }
   }
   .add-to-cart{
     margin-top: 16px;
@@ -2420,7 +2454,7 @@ h3{
     color: $color--porcelain;
     font-size: 1.1rem;
     transition: all .4s ease;
-    margin-right: 24px;
+    margin-right: 54px;
     &:hover{
       transform: scale(1.2);
       background-color: $color--porcelain;
