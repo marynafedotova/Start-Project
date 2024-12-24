@@ -159,12 +159,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var contents = document.querySelectorAll(".info-content");
   tabs.forEach(function (tab) {
     tab.addEventListener("click", function () {
+      // Удаляем активные классы со всех табов и контента
       tabs.forEach(function (item) {
         return item.classList.remove("active");
       });
       contents.forEach(function (content) {
         return content.classList.remove("active");
-      });
+      }); // Добавляем активный класс текущему табу и связанному контенту
+
       tab.classList.add("active");
       document.querySelector(".".concat(tab.id, "-info")).classList.add("active");
     });

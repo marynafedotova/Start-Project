@@ -943,7 +943,7 @@ li {
         text-align: center;
           a {
             display: inline-block; 
-            padding: 16px 47px;
+            padding: 12px 47px;
             background-color: $color--porcelain; 
             color: $ForestGreen; 
             text-align: center; 
@@ -1721,10 +1721,11 @@ fieldset {
   }
 }
 .btn-cart{
-  margin-bottom: 16px;
+  padding-bottom: 16px;
   .add-to-cart{
-    margin-top: 16px;
-    padding: 16px 32px;
+    width: 90%;
+    padding-top: 16px;
+    padding-bottom: 16px;
     background-color: $ForestGreen;
     border: 1px solid $color--porcelain;
     border-radius: 8px;
@@ -1738,7 +1739,13 @@ fieldset {
       color: $ForestGreen;
     }
   }
+  .product_btn{
+    margin-top: 16px;
+  }
 }
+
+
+
 //product-section product page
 .product-section{
   .container{
@@ -2005,40 +2012,25 @@ fieldset {
     margin-bottom: 22px;
     width: 24%;
     aspect-ratio: 1;
-    padding: 16px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
     transition: all .5s ease;
     justify-content: center;
     color: $ForestGreen;
-      .view-details-btn{
-        text-align: center;
-        padding: 8px 24px;
-        margin-top: 16px;
-        background-color: $background-color;
-        color: $color--porcelain;
-        border-radius: 8px;
-        border: 1px solid $black;
-        width: 100%;
-        font-size: 1.2rem;
-        &:hover{
-          background-color: $ForestGreen;
-          border: 1px solid $color--porcelain;
-        }
-      }
     
     img{
-      padding: 8px;
-      width: 200px;
       object-fit:contain;
-      flex-grow: 1;
       margin: 0 auto;
     }
     &:hover{
       cursor: pointer;
       scale: 1.1;
       border: 1px solid linear-gradient(to top right, rgba(215, 224, 217, 0.9), rgba(219, 171, 12, 0.7));
-    } 
+    }
+    .car-details{
+      text-align: center;
+    }
   }
 }
 #brand-title{
@@ -2359,7 +2351,7 @@ h3{
         #story {
           margin-left: 20px;
           border-radius: 5px;
-          border: 2px solid #ced4da; // цвет рамки
+          border: 2px solid #ced4da;
           padding: 5px;
           margin: 10px;
         }
@@ -2634,7 +2626,8 @@ h3{
 //prodect-categoty pages
 .product-list{
   width: 100%;
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
@@ -2670,10 +2663,8 @@ h3{
     }
     .product_btn{
     text-align: center;
-  
       a {
         display: inline-block; 
-        padding: 16px 47px;
         background-color: $color--porcelain; 
         color: $ForestGreen; 
         text-align: center; 
@@ -2681,6 +2672,7 @@ h3{
         text-decoration: none; 
         text-transform: uppercase;
         font-weight: 600;
+        width: 90%;
     &:hover {
       background-color: $background-icon;
       color: $color--porcelain; 
@@ -2783,7 +2775,9 @@ h3{
   }
 }
 @media (max-width: 1400px) {
-  
+  #first-section .container #carAccordion {
+    width: 18%;
+  }
   .hamburger-wrap {
     display: block;
   }
@@ -2824,6 +2818,23 @@ h3{
     height: 16px;
     object-fit: contain;
 }
+#first-section .container{
+  flex-direction: column-reverse;
+  .first_screan_catalog{
+    width: 100%;
+  }
+}
+#first-section .container #carAccordion {
+width: 100%;
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-between;
+.accordion-item{
+  width: 18%;
+}
+}
+#first-section .container .first_screan_catalog 
 header .language ul li{
   height: 16px;
   img{
@@ -2872,10 +2883,27 @@ header .header-container .social-link ul li{
   #first-section_index .container .first_screan {
     justify-content: center;
   }
+  .product-list .product-card {
+    width: 30%;
+  }
 }
 @media screen and (max-width: 700px) {
   header .header-container .tel ul li a {
     font-size: 0.8rem;
+}
+#cars-catalog {
+  padding: 8px;
+  .car-card{
+    width: 30%;
+  .car-details{
+    h3{
+      font-size: 1rem;
+    }
+    p{
+      font-size: 0.9rem;
+    }
+  }
+  }
 }
 }
 
@@ -2897,20 +2925,10 @@ header .header-container .social-link ul li{
     flex-direction: row;
     flex-wrap: wrap;
   }
-}
-@media (max-width: 470px) {
-  header .header-container .tel ul li a {
-    font-size: 0.9rem;
-  }
-  header .header-container .social-link ul li img {
-    width: 20px;
-    aspect-ratio: 1;
-}
-.hamburger{
-  padding: 5px;
+  #cars-catalog .car-card {
+    width: 48%;
   }
 }
-/* Смартфони маленького розміру */
 @media (max-width: 480px) {
   .container {
     width: 95%;
@@ -2922,9 +2940,20 @@ header .header-container .social-link ul li{
   #cars-catalog .car-card {
     width: 100%;
   }
+  header .header-container .tel ul li a {
+    font-size: 0.9rem;
+  }
+  header .header-container .social-link ul li img {
+    width: 20px;
+    aspect-ratio: 1;
+}
+.hamburger{
+  padding: 5px;
+  }
+
 }
 
-/* Найменші пристрої */
+
 @media (max-width: 350px) {
 
   .menu-panel {

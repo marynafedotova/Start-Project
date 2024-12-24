@@ -109,15 +109,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
+      // Удаляем активные классы со всех табов и контента
       tabs.forEach(item => item.classList.remove("active"));
       contents.forEach(content => content.classList.remove("active"));
 
+      // Добавляем активный класс текущему табу и связанному контенту
       tab.classList.add("active");
       document.querySelector(`.${tab.id}-info`).classList.add("active");
     });
   });
-
 });
+
 document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.querySelector('.InOneClickoverlay');
   const modal = document.querySelector('.buyInOneClick');
