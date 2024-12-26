@@ -217,44 +217,52 @@
                  width="600" height="450" style="border:0;"
                  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-              <div id="novaPostDepartment" class="delivery-option hidden">
-                <div style="position: relative; width: 500px;">
-                  <input
-                    type="text"
-                    id="cityInput"
-                    placeholder="Введіть назву населенyого пункту"
-                    autocomplete="off"
-                    style="width: 100%; padding: 10px; box-sizing: border-box;"
-                  />
-                  <ul id="citySuggestions" class="suggestions"></ul>
-                </div>
-                <div>
-                  <select id="department">
-                    <option>Вибиріть відділення</option>
-                  </select>
-                </div>
-              </div>
-              <div id="addressDelivery" class="delivery-option hidden">
-                <div  class="addressDeliveryScrean">
-                  <div>
-                    <label for="deliveryCity">Місто:</label>
-                    <input type="text" id="deliveryCity" name="deliveryCity" />
+                <div id="novaPostDepartment" class="delivery-option hidden">
+                  <div style="position: relative; width: 500px;">
+                    <input
+                      type="text"
+                      id="cityInput"
+                      placeholder="Введіть назву населеного пункту"
+                      autocomplete="off"
+                      style="width: 100%; padding: 10px; box-sizing: border-box;"
+                    />
+                    <ul id="citySuggestions" class="suggestions"></ul>
                   </div>
-                  <div>
-                    <label for="street">Вулиця:</label>
-                    <input type="text" id="street" name="street" />
-                  </div>
-                  <div>
-                    <label for="house">Будинок:</label>
-                    <input type="text" id="house" name="house" />
-                  </div>
-                  <div>
-                    <label for="apartment">Квартира:</label>
-                    <input type="text" id="apartment" name="apartment" />
+                  <div style="position: relative; width: 500px;">
+                    <input
+                      type="text"
+                      id="departmentInput"
+                      placeholder="Виберіть відділення"
+                      autocomplete="off"
+                      disabled
+                      style="width: 100%; padding: 10px; box-sizing: border-box;"
+                    />
+                    <ul id="departmentSuggestions" class="suggestions"></ul>
                   </div>
                 </div>
-
-              </div>
+                
+                <div id="addressDelivery" class="delivery-option hidden">
+                  <div class="addressDeliveryScrean">
+                    <div>
+                      <label for="deliveryCity">Місто:</label>
+                      <input type="text" id="deliveryCity" name="deliveryCity" />
+                      <ul id="citySuggestions"></ul> <!-- Подсказки для города -->
+                    </div>
+                    <div>
+                      <label for="street">Вулиця:</label>
+                      <input type="text" id="street" name="street" disabled />
+                      <ul id="streetSuggestions"></ul> <!-- Подсказки для улиц -->
+                    </div>
+                    <div>
+                      <label for="house">Будинок:</label>
+                      <input type="text" id="house" name="house" disabled />
+                    </div>
+                    <div>
+                      <label for="apartment">Квартира:</label>
+                      <input type="text" id="apartment" name="apartment" disabled />
+                    </div>
+                  </div>
+                </div>
             </div>
 
             <div class="payment-cart">

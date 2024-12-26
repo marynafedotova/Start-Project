@@ -1478,7 +1478,7 @@ fieldset {
           width: 500px;
         }
       }
-      #novaPostDepartment #cityInput{
+      #novaPostDepartment #cityInput, #departmentInput{
         color: $black;
         border-radius: 8px;
         border: 1px solid $ForestGreen;
@@ -1695,6 +1695,7 @@ fieldset {
     font-size: 1rem;
     color: $background-icon; 
   }
+
   .product_btn{
   text-align: center;
 
@@ -1781,7 +1782,10 @@ fieldset {
     justify-content: space-around;
     .info-tab{
       background-color: $form-text;
-      padding: 16px 8%;
+      width: 23%;
+      text-align: center;
+      padding-top: 16px;
+      padding-bottom: 16px;
       border: 1px solid $color--oslo-gray;
       border-radius: 8px;
       font-size: 1rem;
@@ -2154,35 +2158,34 @@ h3{
 
 #modalWrapper {
   position: fixed;
-  display: none; /* Скрыто по умолчанию */
-  top: 0; /* Измените на 0, чтобы оно было в верхней части экрана */
-  left: 0; /* Добавьте это для полного позиционирования */
-  width: 100%; /* Сделайте ширину 100%, чтобы занять весь экран */
-  height: 100%; /* Добавьте высоту 100% */
-  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-  z-index: 9999; /* Увеличьте значение z-index */
+  display: none; 
+  top: 0; 
+  left: 0; 
+  width: 100%;
+  height: 100%; 
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 9999;
 }
 
 .modal-content {
-  background-color: #818488; /* Серый цвет */
-  border-radius: 5px;
-  margin: auto; /* Центрирование по горизонтали */
-  width: 70%; /* Ширина модального окна */
-  max-width: 600px; /* Максимальная ширина, чтобы не занимало слишком много места */
-  top: 50%; /* Центрирование по вертикали */
-  transform: translateY(-50%); /* Центрирование по вертикали */
-  position: relative; /* Для правильного отображения внутри modal-wrapper */
+  background-color: #818488; 
+  margin: auto; 
+  width: 70%; 
+  max-width: 600px;
+  top: 50%; 
+  transform: translateY(-50%);
+  position: relative; 
 }
 
 .modal-header {
   display: block;
   padding: 10px 20px;
-  border-bottom: 2px solid #6c757d; /* Вторичный цвет */
-  background-color: #f8f9fa; /* Светло-серый цвет */
+  border-bottom: 2px solid #6c757d;  
+  background-color: #f8f9fa;  
 }
 
 .modal-title {
-  color: #6c757d; /* Вторичный цвет */
+  color: #6c757d; 
   text-align: center;
   font-size: 1.125rem;
 }
@@ -2192,7 +2195,7 @@ h3{
 
 .table thead tr.col {
   padding: 0 30px;
-  color: #a9a9a9; // Серый цвет
+  color: #a9a9a9; 
 }
 
 .modal-footer {
@@ -2323,13 +2326,13 @@ h3{
 
   .modal-body {
     display: flex;
-    flex-direction: column; // изменил на column, чтобы элементы могли нормально оборачиваться
+    flex-direction: column; 
     padding-left: 10%;
     margin-bottom: 16px;
 
     .order-items {
       h6 {
-        color: #343a40; // цвет текста
+        color: #343a40;
         font-weight: 500;
         font-size: 1rem;
         padding-bottom: 10px;
@@ -2378,23 +2381,34 @@ h3{
   gap: 48px;
   background-color: $background-color;
   align-items: center;
-  .product-image-slider{
-    padding-top: 90px;
-  }
-  .stan{
-    background-color: $ForestGreen;
-    width: 31%;
-    padding: 8px;
-    margin-left: 80%;
-    font-weight: 700;
-  }
-  .articul{
-    color: $ForestGreen;
-    padding-left: 80%;
-    .product-id{
-      color: $color--porcelain;
+  .product-item{
+    width: 45%;
+    padding: 16px;
+    .product-item-list{
+      display: flex;
+      justify-content: flex-end;
+      .stan{
+        background-color: $ForestGreen;
+        width: 28%;
+        padding: 8px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .articul{
+        color: $ForestGreen;
+        .product-id{
+          color: $color--porcelain;
+        }
+      }
     }
   }
+  .product-image-slider{
+    padding-top: 90px;
+    width: 50%;
+    height: 100%;
+    padding-left: 16px;
+  }
+
   .product-name{
     padding-bottom: 16px;
   }
@@ -2438,35 +2452,44 @@ h3{
       font-weight: 700;
     }
   }
-  .add-to-cart{
-    margin-top: 16px;
-    padding: 16px 32px;
-    background-color: $ForestGreen;
-    border: 1px solid $color--porcelain;
-    border-radius: 8px;
-    color: $color--porcelain;
-    font-size: 1.1rem;
-    transition: all .4s ease;
-    margin-right: 54px;
-    &:hover{
-      transform: scale(1.2);
-      background-color: $color--porcelain;
-      border: 1px solid $ForestGreen;
-      color: $ForestGreen;
-    }
-  }
-  .buy-now{
-    padding: 16px 24px;
-    color: $ForestGreen;
-    font-size: 1.125rem;
-    border: 1px solid $ForestGreen;
-    border-radius: 8px;
-    &:hover{
-      transform: scale(1.2);
+  .btn-product-list{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .add-to-cart{
+      
+      padding: 10px 28px;
       background-color: $ForestGreen;
+      border: 1px solid $color--porcelain;
+      border-radius: 8px;
       color: $color--porcelain;
-      border: 1px solid $gray-color;
+      font-size: 1.1rem;
+      transition: all .4s ease;
+  
+      &:hover{
+        transform: scale(1.2);
+        background-color: $color--porcelain;
+        border: 1px solid $ForestGreen;
+        color: $ForestGreen;
+      }
     }
+    .buy-now{
+      padding: 10px 24px;
+      color: $ForestGreen;
+      font-size: 1.125rem;
+      border: 1px solid $ForestGreen;
+      border-radius: 8px;
+      &:hover{
+        transform: scale(1.2);
+        background-color: $ForestGreen;
+        color: $color--porcelain;
+        border: 1px solid $gray-color;
+      }
+    }
+  
   }
 }
 .btn-to-catalog{
@@ -2487,12 +2510,7 @@ h3{
   }
   
 }
-/* Задаємо розмір для елементів слайдера */
-.product-image-slider {
-  width: 550px; 
-  margin: 0;
-  
-}
+
 
 .product-image-slider #imageGallery {
   display: flex;
@@ -2778,6 +2796,13 @@ h3{
   #first-section .container #carAccordion {
     width: 18%;
   }
+  .product-details .stan {
+    background-color: #228B22;
+    margin-left: 60%;
+}
+.product-details .articul {
+  padding-left: 60%;
+}
   .hamburger-wrap {
     display: block;
   }
@@ -2871,6 +2896,29 @@ header .header-container .social-link ul li{
 }
 }
 @media screen and (max-width: 1130px) {
+  .product-image-slider{
+    width: 40%;
+    height: 90%;
+  }
+
+  .info-block .info-header .info-tab  {
+  width: 23%;
+  padding: 16px;
+  text-align: center;
+    }
+    
+  .product-details .product-title-item.price {
+    font-size: 1.4rem;
+    width: 100%;
+  }
+
+  .product-details  .btn-product-list.add-to-cart{
+    padding: 10px 16px;
+  }
+  .product-details .btn-product-list .buy-now{
+    padding: 10px 16px;
+  }
+
   #first-section_index .container .first_screan .sidebar_filter{
     top: 8%;
     position: relative;
