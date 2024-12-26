@@ -286,20 +286,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //адресна доставка
 document.addEventListener("DOMContentLoaded", function () {
-  const cityInput = document.getElementById("deliveryCity");
-  const citySuggestions = document.getElementById("citySuggestions");
-  const streetInput = document.getElementById("street");
-  const streetSuggestions = document.getElementById("streetSuggestions");
-  const houseInput = document.getElementById("house");
-  const apartmentInput = document.getElementById("apartment");
+  const addressCityInput = document.getElementById("addressCityInput");
+  const addressCitySuggestions = document.getElementById("addressCitySuggestions");
+  const addressStreetInput = document.getElementById("addressStreetInput");
+  const addressStreetSuggestions = document.getElementById("addressStreetSuggestions");
 
-  let selectedCityName = ""; // Сохранение выбранного города
+  let selectedCityRef = ""; // Ідентифікатор вибраного міста
 
-  // Поиск городов
-  cityInput.addEventListener("input", function () {
-    const query = cityInput.value.trim();
+  // Перевірка наявності необхідних елементів
+  if (!addressCityInput || !addressCitySuggestions || !addressStreetInput || !addressStreetSuggestions) {
+    console.error("Одного або кількох елементів не знайдено на сторінці.");
+    return;
+  }
 
-    if (query.length > 1) {
+  // Пошук міст
+  addressCityInput.addEventListener("input", function () {
+    const query = addressCityInput.value.trim();
+
+    if (query.length > 0) {
       fetch("https://api.novaposhta.ua/v2.0/json/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -313,110 +317,125 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         }),
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then((data) => {
-          citySuggestions.innerHTML = "";
+          console.log("City search response:", data); // Лог відповіді
 
-          if (data.success && data.data && data.data[0] && data.data[0].Addresses && data.data[0].Addresses.length > 0) {
+          addressCitySuggestions.innerHTML = "";
+
+          if (
+            data.success &&
+            data.data &&
+            data.data[0] &&
+            data.data[0].Addresses &&
+            data.data[0].Addresses.length > 0
+          ) {
             data.data[0].Addresses.forEach((address) => {
               const listItem = document.createElement("li");
               listItem.textContent = `${address.MainDescription}, ${address.Area}, ${address.Region}`;
-              listItem.dataset.cityName = address.MainDescription;
+              listItem.dataset.cityRef = address.Ref; // Збереження Ref міста
 
               listItem.addEventListener("click", () => {
-                selectedCityName = listItem.dataset.cityName;
-                cityInput.value = listItem.textContent;
-                citySuggestions.innerHTML = "";
+                selectedCityRef = listItem.dataset.cityRef; // Перевірка CityRef
+                console.log("Selected CityRef:", selectedCityRef);
+                addressCityInput.value = listItem.textContent;
+                addressCitySuggestions.innerHTML = "";
 
-                // Разблокировать ввод улицы
-                streetInput.disabled = false;
-                streetInput.focus();
+                // Розблокувати введення вулиці
+                addressStreetInput.disabled = false;
+                addressStreetInput.focus();
               });
 
-              citySuggestions.appendChild(listItem);
+              addressCitySuggestions.appendChild(listItem);
             });
           } else {
-            citySuggestions.innerHTML = "<li>Нічого не знайдено</li>";
+            console.warn("Міста не знайдено. Введений запит:", query);
+            addressCitySuggestions.innerHTML = "<li>Нічого не знайдено</li>";
           }
         })
         .catch((error) => {
-          console.error("Ошибка поиска городов:", error);
-          citySuggestions.innerHTML = "<li>Ошибка загрузки городов</li>";
+          console.error("Помилка завантаження міст:", error);
+          addressCitySuggestions.innerHTML = "<li>Помилка завантаження міст</li>";
         });
     } else {
-      citySuggestions.innerHTML = "";
+      addressCitySuggestions.innerHTML = "";
     }
   });
 
-  // Поиск улиц для выбранного города
-  streetInput.addEventListener("input", function () {
-    const query = streetInput.value.trim();
-
-    if (selectedCityName && query.length > 0) {
+  // Пошук вулиць
+  addressStreetInput.addEventListener("input", function () {
+    const query = addressStreetInput.value.trim();
+  
+    if (query.length > 0) {
+      if (!selectedCityRef) {
+        toast.error("Не обрано місто. Спочатку введіть та виберіть місто.");
+        addressStreetSuggestions.innerHTML = "<li>Введіть та виберіть місто</li>";
+        return;
+      }
+  
       fetch("https://api.novaposhta.ua/v2.0/json/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           apiKey: "42c819c8fa548077af98a2bfca982d5e",
           modelName: "Address",
-          calledMethod: "getStreets",
+          calledMethod: "searchSettlementStreets",
           methodProperties: {
-            CityName: selectedCityName,
-            FindByString: query,
+            StreetName: query, // Пошуковий запит
+            SettlementRef: selectedCityRef, // Ref населеного пункту
+            Limit: 10, // Обмеження кількості результатів
           },
         }),
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then((data) => {
-          streetSuggestions.innerHTML = "";
-
-          if (data.success && data.data.length > 0) {
-            data.data.forEach((street) => {
+          console.log("Response data:", data); // Лог відповіді API
+          addressStreetSuggestions.innerHTML = ""; // Очищуємо список пропозицій
+        
+          if (data.success && data.data && data.data[0] && data.data[0].Addresses.length > 0) {
+            data.data[0].Addresses.forEach((street) => {
+              // Перевірка на наявність значення в Present
+              console.log("Street found:", street.Present); // Лог знайденої вулиці
               const listItem = document.createElement("li");
-              listItem.textContent = street.Description;
-
+              
+              // Якщо в полі Present є назва, виводимо її
+              listItem.textContent = street.Present || "Без назви"; 
+        
               listItem.addEventListener("click", () => {
-                streetInput.value = listItem.textContent;
-                streetSuggestions.innerHTML = "";
-
-                // Разблокировать ввод дома
-                houseInput.disabled = false;
-                houseInput.focus();
+                addressStreetInput.value = listItem.textContent;
+                addressStreetSuggestions.innerHTML = ""; // Очищуємо список після вибору
               });
-
-              streetSuggestions.appendChild(listItem);
+        
+              addressStreetSuggestions.appendChild(listItem); // Додаємо в список
             });
           } else {
-            streetSuggestions.innerHTML = "<li>Вулиця не знайдена</li>";
+            // Якщо вулиць не знайдено
+            toast.warn("Вулиці не знайдено для запиту:", query);
+            addressStreetSuggestions.innerHTML = "<li>Вулиця не знайдена</li>";
           }
         })
+        
+        
         .catch((error) => {
-          console.error("Ошибка поиска улиц:", error);
-          streetSuggestions.innerHTML = "<li>Ошибка загрузки улиц</li>";
+          console.error("Помилка завантаження вулиць:", error);
+          addressStreetSuggestions.innerHTML = "<li>Шукаємо вулицю, введіть ще одну літеру</li>";
         });
     } else {
-      streetSuggestions.innerHTML = "";
+      addressStreetSuggestions.innerHTML = "";
     }
+  });
   });
 
-  // Поиск дома и квартиры (можно добавить как еще один запрос, если нужно)
-  houseInput.addEventListener("input", function () {
-    const query = houseInput.value.trim();
-    if (query.length > 0) {
-      // Здесь можно добавить логику поиска дома и квартиры
-    }
-  });
-
-  // Закрытие подсказок при клике вне поля
-  document.addEventListener("click", (event) => {
-    if (!cityInput.contains(event.target) && !citySuggestions.contains(event.target)) {
-      citySuggestions.innerHTML = "";
-    }
-    if (!streetInput.contains(event.target) && !streetSuggestions.contains(event.target)) {
-      streetSuggestions.innerHTML = "";
-    }
-  });
-});
 
 
 

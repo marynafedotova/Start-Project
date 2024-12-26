@@ -1375,7 +1375,7 @@ fieldset {
 #cart{
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
+
   #cartItems{
     width: 45%;
     padding-top: 24px;
@@ -1478,7 +1478,7 @@ fieldset {
           width: 500px;
         }
       }
-      #novaPostDepartment #cityInput, #departmentInput{
+      #novaPostDepartment #cityInput, #departmentInput, #addressCityInput, #addressStreetInput, #addressHouseInput, #addressApartmentInput{
         color: $black;
         border-radius: 8px;
         border: 1px solid $ForestGreen;
@@ -1493,7 +1493,7 @@ fieldset {
         border: 1px solid $ForestGreen;
       }
       #addressDelivery{
-        width: 100%;
+        width: 500px;
       }
     }
   }
@@ -1516,11 +1516,16 @@ fieldset {
   
 }
 .addressDeliveryScrean{
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+flex-direction: column;
   justify-content: space-between;
+  input{
+    padding: 8px;
+    width: 500px;
+  }
+  #addressCitySuggestions, #addressStreetSuggestions{
+    width: 500px;
+  }
 }
 
 #addressDelivery .delivery-option.hidden {
@@ -1530,13 +1535,14 @@ fieldset {
 .suggestions {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin-top: -15px;
   max-height: 200px;
   overflow-y: auto;
   position: absolute;
   background-color: $background-icon;
   z-index: 1000;
   width: 100%;
+  border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 

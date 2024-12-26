@@ -244,27 +244,21 @@
                 <div id="addressDelivery" class="delivery-option hidden">
                   <div class="addressDeliveryScrean">
                     <div>
-                      <label for="deliveryCity">Місто:</label>
-                      <input type="text" id="deliveryCity" name="deliveryCity" />
-                      <ul id="citySuggestions"></ul> <!-- Подсказки для города -->
+                      <input type="text" id="addressCityInput" name="addressCity" placeholder="Місто"/>
+                      <ul id="addressCitySuggestions" class="suggestions"></ul>
                     </div>
                     <div>
-                      <label for="street">Вулиця:</label>
-                      <input type="text" id="street" name="street" disabled />
-                      <ul id="streetSuggestions"></ul> <!-- Подсказки для улиц -->
+                      <input type="text" id="addressStreetInput" name="addressStreet" placeholder="Вулиця"/>
+                      <ul id="addressStreetSuggestions" class="suggestions"></ul> 
+                    <div>
+                      <input type="text" id="addressHouseInput" name="addressHouse"  placeholder="Будинок"/>
                     </div>
                     <div>
-                      <label for="house">Будинок:</label>
-                      <input type="text" id="house" name="house" disabled />
-                    </div>
-                    <div>
-                      <label for="apartment">Квартира:</label>
-                      <input type="text" id="apartment" name="apartment" disabled />
+                      <input type="text" id="addressApartmentInput" name="addressApartment" placeholder="Квартира"/>
                     </div>
                   </div>
                 </div>
             </div>
-
             <div class="payment-cart">
               <div class="payment-cart-title">Оплата</div>
               <form action="#" method="post">
@@ -286,9 +280,10 @@
             </div>
           </div>
       </div>
-      <div class="btn-send">
-        <button id="sendToTelegram">Відправити</button>
-      </div>
+      
+    </div>
+    <div class="btn-send">
+      <button id="sendToTelegram">Відправити</button>
     </div>
     </main>
     <footer>
