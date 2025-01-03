@@ -315,10 +315,7 @@ main {
     padding: 10px;
     align-items: center;
     background-color: $color--mine-shaft;
-
-    .hamburger-wrap {
-      margin-left: 60px;
-    }
+justify-content: space-between;
   }
 
   nav {
@@ -1224,6 +1221,7 @@ font-weight: 700;
     padding-top: 20%;
     #car-order-modal{
       .modal-content{
+        width: 90%;
         background-color: $color--oslo-gray;
         z-index: 1000;
         .car-order-header{
@@ -1521,10 +1519,10 @@ flex-direction: column;
   justify-content: space-between;
   input{
     padding: 8px;
-    width: 500px;
+    width: 100%;
   }
   #addressCitySuggestions, #addressStreetSuggestions{
-    width: 500px;
+    width: 100%;
   }
 }
 
@@ -1536,12 +1534,12 @@ flex-direction: column;
   list-style-type: none;
   padding: 0;
   margin-top: -15px;
-  max-height: 200px;
+  // max-height: 200px;
   overflow-y: auto;
   position: absolute;
   background-color: $background-icon;
   z-index: 1000;
-  width: 100%;
+  // width: 100%;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -2176,7 +2174,7 @@ h3{
 .modal-content {
   background-color: #818488; 
   margin: auto; 
-  width: 70%; 
+  width: 90%; 
   max-width: 600px;
   top: 50%; 
   transform: translateY(-50%);
@@ -2601,19 +2599,23 @@ h3{
 
 .buyInOneClick {
   position: fixed;
-  top: 75%;
-  left: 50%;
+top: 50%;
+left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
   z-index: 1000;
   display: none;
   border-radius: 8px;
+  width: 80%;
+
 }
 
-.modal-content{
-  display: flex;
+.modal-content-buyInOneClick{
   padding: 16px;
+  background-color: $color--gray;
+  display: flex;
   flex-direction: column;
+  position: relative;
   h4{
     color: $color--porcelain;
     font-size: 1.2rem;
@@ -2621,17 +2623,19 @@ h3{
     padding-bottom: 16px;
 
   }
-}
-.buyInOneClick form input,
-.buyInOneClick form textarea {
+  form{
+    display: flex;
+    flex-direction: column;
+  }
+form input,
+form textarea {
   width: 100%;
   margin-bottom: 10px;
   padding: 10px;
   border: 2px solid $ForestGreen;
   border-radius: 4px;
 }
-
-.buyInOneClick form button {
+ form button {
   display: block;
   width: 100%;
   background-color: $ForestGreen;
@@ -2645,6 +2649,24 @@ h3{
     background-color: $color--porcelain;
     color: $ForestGreen;
   }
+}
+.close-modal-buyInOneClick {
+  // padding-left: 70%;
+top: 10px;
+right: 10px;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  font-size: 20px; 
+  color: #000; 
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.close-modal-buyInOneClick:hover {
+  color: #007bff; /* Цвет текста при наведении */
+}
+
 }
 
 //prodect-categoty pages
@@ -2792,6 +2814,10 @@ h3{
   
 }
 }
+
+
+
+
 // rwd
 @media (max-width: 1500px) {
   #first-section_index .container .first_screan .sidebar_filter{
@@ -2829,9 +2855,15 @@ h3{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+.account, .language{
+  width: 0;
+  height: 0;
+}
+
   }
   header .header-container .logo img {
-    width: 130px;
+    width: 200px;
     object-fit: contain;
   }
   header .account ul li img, header .language ul li img {
@@ -2900,8 +2932,30 @@ header .header-container .social-link ul li{
   footer .container .schedule .work-time .time {
     font-size: 0.9rem;
 }
+.btn-product-list{
+  .add-to-cart{
+    margin-bottom: 16px;
+    width: 100%;
+  }
+  .buy-now{
+    width: 100%;
+  }
+}
+#cart{
+  flex-direction: column;
+  justify-content: center;
+  gap: 0px;
+  #cartItems, .cart-data{
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+}
 }
 @media screen and (max-width: 1130px) {
+  .menu-panel {
+    width: 50%;
+    height: 100%;
+  }
   .product-image-slider{
     width: 40%;
     height: 90%;
@@ -2911,8 +2965,11 @@ header .header-container .social-link ul li{
   width: 23%;
   padding: 16px;
   text-align: center;
+  vertical-align: middle;
     }
-    
+    .info-block .info-header .info-tab.active{
+      background-color: #fff;
+    }
   .product-details .product-title-item.price {
     font-size: 1.4rem;
     width: 100%;
@@ -2940,6 +2997,22 @@ header .header-container .social-link ul li{
   .product-list .product-card {
     width: 30%;
   }
+  .product-details{
+    flex-direction: column;
+    padding-top: 16px;
+    .product-image-slider{
+      width: 100%;
+      padding-right: 16px;
+      padding-top: 16px;
+    }
+    .product-item {
+      width: 100%;
+      padding: 16px;
+  }
+  }
+  .product-section {
+    padding: 30px 0;
+}
 }
 @media screen and (max-width: 700px) {
   header .header-container .tel ul li a {
@@ -2959,6 +3032,42 @@ header .header-container .social-link ul li{
   }
   }
 }
+.product-details .product-image-slider{
+  height: 50%;
+}
+.menu-panel {
+  width: 90%;
+  height: 100%;
+}
+header .header-container .logo img {
+  width: 100px;
+  object-fit: contain;
+}
+header .header-container{
+  padding-bottom: 8px;
+}
+.hamburger {
+  padding: 4px;
+}
+header .header-container {
+  justify-content: center;
+}
+header .header-container .social-link ul li {
+  margin-top: 0px;
+}
+header .header-container .tel ul li {
+  padding: 0;
+}
+header .header-container {
+  padding-bottom: 1px;
+}
+.empty-cart-message{
+  margin: 24px auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 }
 
 @media (max-width: 860px) {
@@ -2972,6 +3081,13 @@ header .header-container .social-link ul li{
   header .header-container .tel ul{
     text-align: center;
   }
+  header .header-container .logo img {
+    width: 150px;
+    object-fit: contain;
+}
+.btn-send #sendToTelegram{
+  width: 200px;
+}
 }
 @media (max-width: 580px) {
   footer .container {
@@ -2982,8 +3098,30 @@ header .header-container .social-link ul li{
   #cars-catalog .car-card {
     width: 48%;
   }
+
+  .info-block .info-header .info-tab {
+padding: 8px;  
+font-size: 0.9rem;
 }
-@media (max-width: 480px) {
+#cart .cart-data .contacts-cart {
+  flex-direction: column;
+  form{
+    flex-direction: column;
+    gap: 0;
+    .form-contacts-item {
+      width: 100%;
+      padding: 8px;
+  }
+  }
+}
+#cart #cartItems .cart-item {
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+}
+@media (max-width: 485px) {
   .container {
     width: 95%;
   }
@@ -3004,7 +3142,10 @@ header .header-container .social-link ul li{
 .hamburger{
   padding: 5px;
   }
-
+  .info-block .info-header .info-tab {
+    padding: 5px;  
+    font-size: 0.7rem;
+    }
 }
 
 

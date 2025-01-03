@@ -177,8 +177,27 @@ document.addEventListener('DOMContentLoaded', function () {
   var modal = document.querySelector('.buyInOneClick');
   var buyNowButtons = document.querySelectorAll('.buy-now');
   var sendButton = document.getElementById('sendToTelegram');
+  var closeButton = document.querySelector('.close-modal-buyInOneClick');
   var CHAT_ID = "-1002422030496";
   var BOT_TOKEN = "7598927769:AAGEAZ5pRe-5I1rtmaRroxja94iPboFIGuw";
+
+  function closeModal() {
+    overlay.style.display = 'none';
+    modal.style.display = 'none';
+  }
+
+  if (closeButton) {
+    closeButton.addEventListener('click', function () {
+      closeModal();
+    });
+  } // Закрытие модального окна при клике на overlay
+
+
+  if (overlay) {
+    overlay.addEventListener('click', function () {
+      closeModal();
+    });
+  }
 
   function getProductData(button) {
     var productItem = button.closest('.product-item');
